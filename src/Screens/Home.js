@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 import { onAuthStateChanged, signOut } from "@firebase/auth";
 import { auth } from "../Config/FirebaseConfig";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Home = () => {
@@ -13,6 +13,9 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  const location = useLocation()
+  console.log(location.state);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -56,6 +59,15 @@ const Home = () => {
             >
               Log Out <LogoutIcon />
             </Button>
+            
+          <div style={{background:'gray',margin:'100px'}}>
+            <h3>{location.state.userName}</h3>
+            <h3>{location.state.cnic}</h3>
+            <h3>{location.state.country}</h3>
+            <h3>{location.state.email}</h3>
+            <h3>{location.state.pNumber}</h3>
+
+          </div>
           </Box>
         </>
       )}
